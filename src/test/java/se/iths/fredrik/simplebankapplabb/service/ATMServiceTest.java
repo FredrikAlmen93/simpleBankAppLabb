@@ -46,4 +46,21 @@ public class ATMServiceTest {
         assertThrows(InsufficientFundsException.class,
                 () -> atmService.withdraw(200));
     }
+
+    @Test
+    @DisplayName("Valid account deposit")
+    void validAccountDeposit(){
+        atmService.deposit(100);
+        verify(account).deposit(100);
+    }
+
+    @Test
+    @DisplayName("Valid account withdraw")
+    void validAccountWithdraw(){
+        when(account.getBalance()).thenReturn(100);
+
+        atmService.withdraw(50);
+
+        verify(account).withdraw(50);
+    }
 }
