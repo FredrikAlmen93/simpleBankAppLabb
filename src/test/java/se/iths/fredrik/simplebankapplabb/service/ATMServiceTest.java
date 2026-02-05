@@ -40,7 +40,7 @@ public class ATMServiceTest {
     }
 
     @Test
-    @DisplayName("Withdraw Invalid amount")
+    @DisplayName("Withdraw throws InvalidAmountException")
     void  withdrawInvalidAmount(){
         assertThrows(InvalidAmountException.class,
                 () -> atmService.withdraw(0));
