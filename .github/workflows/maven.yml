@@ -7,17 +7,18 @@
 # documentation.
 
 name: Java CI with Maven
-permissions:
-  contents: read
-  id-token: write
-  security-events: write
-  actions: read
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+
+permissions:
+  contents: read
+  id-token: write
+  security-events: write
+  actions: read
 
 jobs:
   build:
