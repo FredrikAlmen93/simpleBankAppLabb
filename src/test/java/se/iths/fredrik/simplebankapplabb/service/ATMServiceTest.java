@@ -11,6 +11,7 @@ import se.iths.fredrik.simplebankapplabb.exception.InsufficientFundsException;
 import se.iths.fredrik.simplebankapplabb.exception.InvalidAmountException;
 import se.iths.fredrik.simplebankapplabb.exception.MaxWithdrawExceededException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -33,9 +34,16 @@ public class ATMServiceTest {
 
     @Test
     @DisplayName("Withdraw throws MaxWithdrawExceededException")
-    void  withdrawInvalidAmount(){
+    void  withdrawOverMaxAmount(){
         assertThrows(MaxWithdrawExceededException.class,
                 () -> atmService.withdraw(2000));
+    }
+
+    @Test
+    @DisplayName("Withdraw Invalid amount")
+    void  withdrawInvalidAmount(){
+        assertThrows(InvalidAmountException.class,
+                () -> atmService.withdraw(0));
     }
 
     @Test
@@ -62,5 +70,15 @@ public class ATMServiceTest {
         atmService.withdraw(50);
 
         verify(account).withdraw(50);
+    }
+
+    @Test
+    @DisplayName("Valid get account balance")
+    void getAccountBalance(){
+        when(account.getBalance()).thenReturn(100);
+
+        int balance = atmService.getBalance();
+
+        assertEquals(100, balance);
     }
 }
